@@ -1,6 +1,6 @@
 mlflow
 scikit-learn
-pandas
 numpy
+pandas
 joblib
 matplotlib
