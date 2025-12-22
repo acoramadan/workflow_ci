@@ -15,13 +15,14 @@ def main(data_dir, n_estimators, max_depth):
     y_test  = joblib.load(os.path.join(data_dir, "y_test.pkl"))
 
     model = RandomForestClassifier(
-            n_estimators=n_estimators,
-            max_depth=max_depth,
-            random_state=42
+        n_estimators=n_estimators,
+        max_depth=max_depth,
+        random_state=42
     )
-    model.fit(X_train, y_train)
 
+    model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
+
     acc = accuracy_score(y_test, y_pred)
 
     mlflow.log_param("n_estimators", n_estimators)
