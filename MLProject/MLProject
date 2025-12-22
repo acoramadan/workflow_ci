@@ -1,6 +1,9 @@
 name: submission-akhir
 
-python_env: requirements.txt 
+python_env:
+  python: "3.10"
+  pip:
+    - -r requirements.txt
 
 entry_points:
   main:
