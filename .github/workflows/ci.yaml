@@ -1,0 +1,51 @@
+name: MLflow CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    - name: Install MLflow
+      run: pip install mlflow
+
+    - name: Run MLflow Project
+      run: |
+        mlflow run MLProject \
+          -P data_dir=data \
+          -P n_estimators=200 \
+          -P max_depth=20
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: mlflow-artifacts
+        path: MLProject/mlruns/
+    
+    - name: Log in to Docker hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+    
+    - name: Build Docker image with MLflow
+      run:   RUN_ID=$(ls MLProject/mlruns/*/*/ | head -n 1 | awk -F/ '{print $3}')
+
+        mlflow models build-docker \
+          --model-uri runs:/$RUN_ID/model \
+          --name ${{ secrets.DOCKER_HUB_USERNAME }}/rf-mlflow
+    
+    - name: Push Docker image
+      run:  |
+        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/rf-mlflow
