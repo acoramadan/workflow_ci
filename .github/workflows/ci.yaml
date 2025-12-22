@@ -8,6 +8,10 @@ jobs:
   train-and-docker:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        shell: bash -l {0}
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -17,9 +21,10 @@ jobs:
       with:
         auto-activate-base: false
 
-    - name: Install MLflow
+    - name: Verify conda
       run: |
-        pip install mlflow
+        conda --version
+        which conda
 
     - name: Run MLflow Project
       run: |
@@ -42,9 +47,8 @@ jobs:
 
     - name: Build Docker image with MLflow
       run: |
-        RUN_ID=$(ls mlruns/*/*/ | head -n 1 | awk -F/ '{print $3}')
         mlflow models build-docker \
-          --model-uri runs:/$RUN_ID/model \
+          --model-uri runs:/$MLFLOW_RUN_ID/model \
           --name ${{ secrets.DOCKER_HUB_USERNAME }}/rf-mlflow
 
     - name: Push Docker image
