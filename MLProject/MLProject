@@ -7,7 +7,7 @@ entry_points:
     parameters:
       data_dir:
         type: string
-        default: data
+        default: data/
       n_estimators:
         type: int
         default: 100
