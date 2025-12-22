@@ -1,13 +1,13 @@
 name: submission-akhir
 
-conda_env: conda.yaml
+python_env: requirements.txt 
 
 entry_points:
   main:
     parameters:
       data_dir:
         type: string
-        default: data/
+        default: data
       n_estimators:
         type: int
         default: 100
