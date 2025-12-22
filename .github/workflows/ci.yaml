@@ -19,12 +19,16 @@ jobs:
     - name: Set up Miniconda
       uses: conda-incubator/setup-miniconda@v3
       with:
-        auto-activate-base: false
+        auto-activate-base: true
 
-    - name: Verify conda
+    - name: Install MLflow CLI
       run: |
-        conda --version
-        which conda
+        pip install mlflow
+
+    - name: Verify MLflow
+      run: |
+        which mlflow
+        mlflow --version
 
     - name: Run MLflow Project
       run: |
