@@ -44,9 +44,8 @@ def main(n_estimators, max_depth):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir", required=True)
     parser.add_argument("--n_estimators", type=int, default=100)
     parser.add_argument("--max_depth", type=int, default=10)
     args = parser.parse_args()
 
-    main(args.data_dir, args.n_estimators, args.max_depth)
+    main(args.n_estimators, args.max_depth)
