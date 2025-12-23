@@ -66,8 +66,8 @@ jobs:
 
         mlflow models build-docker \
           --model-uri runs:/$RUN_ID/model \
-          --name ${{ secrets.DOCKER_HUB_USERNAME }}/rf-mlflow
+          --name ${{ secrets.DOCKER_HUB_USERNAME }}/rf-mlflow_fix
 
     - name: Push Docker image
       run: |
-        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/rf-mlflow
+        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/rf-mlflow_fix
