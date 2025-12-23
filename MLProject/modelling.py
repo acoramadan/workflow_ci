@@ -1,6 +1,4 @@
 import argparse
-import os
-import joblib
 import mlflow
 import mlflow.sklearn
 import matplotlib.pyplot as plt
