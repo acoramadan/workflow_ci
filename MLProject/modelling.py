@@ -13,7 +13,7 @@ def main(n_estimators, max_depth):
     df = pd.read_csv("hf://datasets/nikesh66/Sarcasm-dataset/sarcasm_tweets.csv")
 
     X = df["Tweet"].astype(str)
-    y = df["label"]
+    y = df["Sarcasm (yes/no)"]
 
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
