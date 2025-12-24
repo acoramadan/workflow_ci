@@ -10,7 +10,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
 def main(n_estimators, max_depth):
-    df = pd.read_csv("../../preprocessing/sarcasm_clean.csv")
+    df = pd.read_csv("sarcasm_clean.csv")
 
     X = df["clean_text"].astype(str)
     y = df["Sarcasm (yes/no)"]
